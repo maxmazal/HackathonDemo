@@ -104,22 +104,22 @@ public class BudgetController {
                 if (budgetAmount > budgetLimit) {
                     evaluationText = "[+]You are saving $" + formattedBudgetAmount + ", which is over 15% of your Monthly Income.\n";
                 } else if (budgetAmount <= budgetLimit) {
-                    evaluationText = "[-]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " is below 15% of your Monthly Income.\n";
+                    evaluationText = "[-]Your savings of $" + formattedBudgetAmount + " is below 15% of your Monthly Income.\n";
                 }
             } else if (budgetAmount > budgetLimit) {
-                evaluationText = "[-]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " exceeds 15% of your Monthly Income.\n";
+                evaluationText = "[-]Your " + budgetName + " cost of $" + formattedBudgetAmount + " exceeds 15% of your Monthly Income.\n";
             } else if (budgetAmount <= budgetLimit) {
-                evaluationText = "[+]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " is within budget.\n";
+                evaluationText = "[+]Your " + budgetName + " cost of $" + formattedBudgetAmount + " is within budget.\n";
             }
             evaluationBox.appendText(evaluationText);
     }
 
         if(calc>monthlyIncome){
-            double deficit = calc-monthlyIncome;
+            String deficit = String.format("%.2f", calc-monthlyIncome);
             budgetTotalText.setStyle("-fx-text-fill: red");
             budgetTotalText.setText("You are -$" + deficit + " in deficit.\nSee analysis below for assistance.");
         }else{
-            double saving = monthlyIncome-calc;
+            String saving = String.format("%.2f",monthlyIncome-calc);
             budgetTotalText.setStyle("-fx-text-fill: green");
             budgetTotalText.setText("You have $" + saving + " in additional savings.");
         }
@@ -133,7 +133,8 @@ public class BudgetController {
 
         for(int i=0;i<arrExpense.length;i++){
             if(amountArr[i]!=0){
-                expectedList.getItems().add("$"+amountArr[i]+"\t| "+arrExpense[i]);
+                String sugCost = String.format("%.2f",amountArr[i]);
+                expectedList.getItems().add("$"+sugCost+"\t| "+arrExpense[i]);
             }
 
         }
