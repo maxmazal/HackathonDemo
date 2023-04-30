@@ -153,7 +153,10 @@ public class BudgetController {
         expectedList.getItems().clear();
 
         for(int i=0;i<arrExpense.length;i++){
-            expectedList.getItems().add("$"+amountArr[i]+"\t| "+arrExpense[i]);
+            if(amountArr[i]!=0){
+                expectedList.getItems().add("$"+amountArr[i]+"\t| "+arrExpense[i]);
+            }
+
         }
 
         /*
@@ -220,9 +223,9 @@ public class BudgetController {
         expenseTypeList.setValue("Expense Type");
 
         expenseTypeList.setOnAction(event -> {
-            String selected = expenseTypeList.getValue();
             buttonAddExpense.setDisable(false);
-            System.out.println("Selected: " + selected);
+//            String selected = expenseTypeList.getValue();
+//            System.out.println("Selected: " + selected);
         });
 
 

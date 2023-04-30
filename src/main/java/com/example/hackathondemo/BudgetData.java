@@ -20,6 +20,6 @@ public class BudgetData {
 
     @Override
     public String toString() {
-        return "$"+budgetAmount+"\t"+budgetName;
+        return "$"+budgetAmount+"\t| "+budgetName;
     }
 }
