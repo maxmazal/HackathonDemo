@@ -48,32 +48,70 @@ public class BudgetController {
 
         //Computes the total
         double calc = 0;
-        for(BudgetData expense : HelloApplication.budget){
+        for (BudgetData expense : HelloApplication.budget) {
             calc += Double.parseDouble(expense.getBudgetAmount());
         }
 
         //initializes string variable to append to
         String evaluationText = "";
 
+        double housingCost, transCost, savingCost, foodCost, utilCost, insurCost, recCost, mediCost;
+        housingCost = transCost = savingCost = foodCost = utilCost = insurCost = recCost = mediCost = 0;
+
+        Double budgetLimit = null;
+
         //multiplies based on percentage of monthly income
         for (BudgetData expense : HelloApplication.budget) {
-            double budgetLimit = 0;
             switch (expense.getBudgetName()) {
-                case "Housing" -> budgetLimit = monthlyIncome * .35;
-                case "Transportation", "Utilities" -> budgetLimit = monthlyIncome * .10;
-                case "Savings", "Food" -> budgetLimit = monthlyIncome * .15;
-                case "Insurance", "Recreation", "Medical" -> budgetLimit = monthlyIncome * .05;
-                default -> {
-                }
-            }
+                case "Housing":
+                    housingCost = monthlyIncome * .35;
+                    budgetLimit = housingCost;
+                    break;
 
+                case "Transportation":
+                    transCost = monthlyIncome * .10;
+                    budgetLimit = transCost;
+                    break;
+
+                case "Savings":
+                    savingCost = monthlyIncome * .15;
+                    budgetLimit = savingCost;
+                    break;
+
+                case "Food":
+                    foodCost = monthlyIncome * .15;
+                    budgetLimit = foodCost;
+                    break;
+
+                case "Utilities":
+                    utilCost = monthlyIncome * .10;
+                    budgetLimit = utilCost;
+                    break;
+
+                case "Insurance":
+                    insurCost = monthlyIncome * .05;
+                    budgetLimit = insurCost;
+                    break;
+
+                case "Recreation":
+                    recCost = monthlyIncome * .05;
+                    budgetLimit = recCost;
+                    break;
+
+                case "Medical":
+                    mediCost = monthlyIncome * .05;
+                    budgetLimit = mediCost;
+                    break;
+            }
             double budgetAmount = Double.parseDouble(expense.getBudgetAmount());
             String formattedBudgetAmount = String.format("%.2f", budgetAmount);
             String budgetName = expense.getBudgetName();
-            if(budgetName.equals("Savings")){
-                if(budgetAmount>budgetLimit){
+
+            if (budgetLimit != null) {
+            if (budgetName.equals("Savings")) {
+                if (budgetAmount > budgetLimit) {
                     evaluationText = "[+]You are saving $" + formattedBudgetAmount + ", which is over 15% of your Monthly Income.\n";
-                } else if(budgetAmount<=budgetLimit){
+                } else if (budgetAmount <= budgetLimit) {
                     evaluationText = "[-]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " is below 15% of your Monthly Income.\n";
                 }
             } else if (budgetAmount > budgetLimit) {
@@ -83,6 +121,7 @@ public class BudgetController {
             }
             evaluationBox.appendText(evaluationText);
         }
+    }
 
 
 
@@ -98,9 +137,6 @@ public class BudgetController {
         }
 
         evaluationBox.setText(evaluationText);
-
-        double housingCost, transCost, savingCost, foodCost, utilCost, insurCost, recCost, mediCost;
-        housingCost = transCost = savingCost = foodCost = utilCost = insurCost = recCost = mediCost = 0;
 
         String[] arrExpense = {"Housing","Transportation","Savings","Food","Utilities","Insurance","Recreation","Medical"};
         double[] amountArr = {housingCost,transCost,savingCost,foodCost,utilCost,insurCost,recCost,mediCost};
