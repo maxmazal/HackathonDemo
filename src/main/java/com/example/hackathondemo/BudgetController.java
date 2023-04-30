@@ -31,7 +31,7 @@ public class BudgetController {
 
         }
 
-        //enables the button after choice is sleceted
+        //enables the button after choice is selected
         buttonFinish.setDisable(false);
 
     }
@@ -63,51 +63,43 @@ public class BudgetController {
         //multiplies based on percentage of monthly income
         for (BudgetData expense : HelloApplication.budget) {
             switch (expense.getBudgetName()) {
-                case "Housing":
+                case "Housing" -> {
                     housingCost = monthlyIncome * .35;
                     budgetLimit = housingCost;
-                    break;
-
-                case "Transportation":
+                }
+                case "Transportation" -> {
                     transCost = monthlyIncome * .10;
                     budgetLimit = transCost;
-                    break;
-
-                case "Savings":
+                }
+                case "Savings" -> {
                     savingCost = monthlyIncome * .15;
                     budgetLimit = savingCost;
-                    break;
-
-                case "Food":
+                }
+                case "Food" -> {
                     foodCost = monthlyIncome * .15;
                     budgetLimit = foodCost;
-                    break;
-
-                case "Utilities":
+                }
+                case "Utilities" -> {
                     utilCost = monthlyIncome * .10;
                     budgetLimit = utilCost;
-                    break;
-
-                case "Insurance":
+                }
+                case "Insurance" -> {
                     insurCost = monthlyIncome * .05;
                     budgetLimit = insurCost;
-                    break;
-
-                case "Recreation":
+                }
+                case "Recreation" -> {
                     recCost = monthlyIncome * .05;
                     budgetLimit = recCost;
-                    break;
-
-                case "Medical":
+                }
+                case "Medical" -> {
                     mediCost = monthlyIncome * .05;
                     budgetLimit = mediCost;
-                    break;
+                }
             }
             double budgetAmount = Double.parseDouble(expense.getBudgetAmount());
             String formattedBudgetAmount = String.format("%.2f", budgetAmount);
             String budgetName = expense.getBudgetName();
-
-            if (budgetLimit != null) {
+            
             if (budgetName.equals("Savings")) {
                 if (budgetAmount > budgetLimit) {
                     evaluationText = "[+]You are saving $" + formattedBudgetAmount + ", which is over 15% of your Monthly Income.\n";
@@ -120,11 +112,7 @@ public class BudgetController {
                 evaluationText = "[+]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " is within budget.\n";
             }
             evaluationBox.appendText(evaluationText);
-        }
     }
-
-
-
 
         if(calc>monthlyIncome){
             double deficit = calc-monthlyIncome;
