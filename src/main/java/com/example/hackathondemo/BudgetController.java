@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 
 import java.io.*;
@@ -24,7 +23,7 @@ public class BudgetController {
     @FXML
     void addExpense(ActionEvent event) {
 
-
+        //refreshes left column and adds items
         actualList.getItems().clear();
         HelloApplication.budget.add(new BudgetData(expenseTypeList.getValue(), expenseInput.getText()));
         for(int i = 0; i < (HelloApplication.budget.size()); i++) {
@@ -32,6 +31,7 @@ public class BudgetController {
 
         }
 
+        //enables the button after choice is sleceted
         buttonFinish.setDisable(false);
 
     }
@@ -43,10 +43,8 @@ public class BudgetController {
     @FXML
     void finishCalc(ActionEvent event) {
 
-        double monthlyIncome = Double.parseDouble(monthlyInput.getText());
-        double housingCost, transCost, savingCost, foodCost, utilCost, insurCost, recCost, mediCost;
-        housingCost = transCost = savingCost = foodCost = utilCost = insurCost = recCost = mediCost = 0;
 
+        double monthlyIncome = Double.parseDouble(monthlyInput.getText());
 
         //Computes the total
         double calc = 0;
@@ -54,44 +52,34 @@ public class BudgetController {
             calc += Double.parseDouble(expense.getBudgetAmount());
         }
 
+        //initializes string variable to append to
         String evaluationText = "";
 
+        //multiplies based on percentage of monthly income
         for (BudgetData expense : HelloApplication.budget) {
             double budgetLimit = 0;
             switch (expense.getBudgetName()) {
-                case "Housing":
-                    budgetLimit = monthlyIncome * .35;
-                    break;
-
-                case "Transportation", "Utilities":
-                    budgetLimit = monthlyIncome * .10;
-                    break;
-
-                case "Savings", "Food":
-                    budgetLimit = monthlyIncome * .15;
-                    break;
-
-                case "Insurance", "Recreation", "Medical":
-                    budgetLimit = monthlyIncome * .05;
-                    break;
-
-                default:
-                    break;
+                case "Housing" -> budgetLimit = monthlyIncome * .35;
+                case "Transportation", "Utilities" -> budgetLimit = monthlyIncome * .10;
+                case "Savings", "Food" -> budgetLimit = monthlyIncome * .15;
+                case "Insurance", "Recreation", "Medical" -> budgetLimit = monthlyIncome * .05;
+                default -> {
+                }
             }
 
             double budgetAmount = Double.parseDouble(expense.getBudgetAmount());
+            String formattedBudgetAmount = String.format("%.2f", budgetAmount);
             String budgetName = expense.getBudgetName();
-
             if(budgetName.equals("Savings")){
                 if(budgetAmount>budgetLimit){
-                    evaluationText = "[+]You are saving $" + budgetAmount + ", which is over 15% of your Monthly Income.\n";
+                    evaluationText = "[+]You are saving $" + formattedBudgetAmount + ", which is over 15% of your Monthly Income.\n";
                 } else if(budgetAmount<=budgetLimit){
-                    evaluationText = "[-]Your " + budgetName + " cost of $" + budgetAmount + " is below 15% of your Monthly Income.\n";
+                    evaluationText = "[-]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " is below 15% of your Monthly Income.\n";
                 }
             } else if (budgetAmount > budgetLimit) {
-                evaluationText = "[-]Your " + budgetName + " cost of $" + budgetAmount + " exceeds 15% of your Monthly Income.\n";
+                evaluationText = "[-]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " exceeds 15% of your Monthly Income.\n";
             } else if (budgetAmount <= budgetLimit) {
-                evaluationText = "[+]Your " + budgetName + " cost of $" + budgetAmount + " is within budget.\n";
+                evaluationText = "[+]Your " + formattedBudgetAmount + " cost of $" + formattedBudgetAmount + " is within budget.\n";
             }
             evaluationBox.appendText(evaluationText);
         }
@@ -111,9 +99,11 @@ public class BudgetController {
 
         evaluationBox.setText(evaluationText);
 
+        double housingCost, transCost, savingCost, foodCost, utilCost, insurCost, recCost, mediCost;
+        housingCost = transCost = savingCost = foodCost = utilCost = insurCost = recCost = mediCost = 0;
 
-        String arrExpense[] = {"Housing","Transportation","Savings","Food","Utilities","Insurance","Recreation","Medical"};
-        double amountArr[] = {housingCost,transCost,savingCost,foodCost,utilCost,insurCost,recCost,mediCost};
+        String[] arrExpense = {"Housing","Transportation","Savings","Food","Utilities","Insurance","Recreation","Medical"};
+        double[] amountArr = {housingCost,transCost,savingCost,foodCost,utilCost,insurCost,recCost,mediCost};
 
         expectedList.getItems().clear();
 
@@ -175,9 +165,7 @@ public class BudgetController {
 
         expenseTypeList.setValue("Expense Type");
 
-        expenseTypeList.setOnAction(event -> {
-            buttonAddExpense.setDisable(false);
-        });
+        expenseTypeList.setOnAction(event -> buttonAddExpense.setDisable(false));
 
         buttonRemove.setOnAction(e -> {
             int selectedIndex = actualList.getSelectionModel().getSelectedIndex();
@@ -193,11 +181,6 @@ public class BudgetController {
     void expenseClicked(MouseEvent event) {
         System.out.println(expenseTypeList.getValue());
     }
-
-    @FXML
-    private Button saveButton;
-    @FXML
-    private Button loadButton;
 
     @FXML
     void loadPress(ActionEvent event) {
