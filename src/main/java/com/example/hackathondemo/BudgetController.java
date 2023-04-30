@@ -69,7 +69,7 @@ public class BudgetController {
                     housingCost = monthlyIncome * .35;
                     if (Double.parseDouble(expense.getBudgetAmount()) > housingCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < housingCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= housingCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
@@ -78,7 +78,7 @@ public class BudgetController {
                     transCost = monthlyIncome * .10;
                     if (Double.parseDouble(expense.getBudgetAmount()) > transCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < transCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= transCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
@@ -88,7 +88,7 @@ public class BudgetController {
                     if (Double.parseDouble(expense.getBudgetAmount()) > savingCost) {
                         evaluationText += "You are saving over 15% of your monthly income.\n";
 
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < savingCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= savingCost) {
                         evaluationText += "Your savings each month of $" + expense.getBudgetAmount() + " is under 15% of your Monthly Income. You should save more money each month.\n";
                     }
                         break;
@@ -97,7 +97,7 @@ public class BudgetController {
                     foodCost = monthlyIncome * .15;
                     if (Double.parseDouble(expense.getBudgetAmount()) > foodCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < foodCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= foodCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
@@ -106,7 +106,7 @@ public class BudgetController {
                     utilCost = monthlyIncome * .10;
                     if (Double.parseDouble(expense.getBudgetAmount()) > utilCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < utilCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= utilCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
@@ -115,7 +115,7 @@ public class BudgetController {
                     insurCost = monthlyIncome * .05;
                     if (Double.parseDouble(expense.getBudgetAmount()) > insurCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < insurCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= insurCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
@@ -124,7 +124,7 @@ public class BudgetController {
                     recCost = monthlyIncome * .05;
                     if (Double.parseDouble(expense.getBudgetAmount()) > recCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < recCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= recCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                         
                     }
@@ -134,7 +134,7 @@ public class BudgetController {
                     mediCost = monthlyIncome * .05;
                     if (Double.parseDouble(expense.getBudgetAmount()) > mediCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
-                    } else if (Double.parseDouble(expense.getBudgetAmount()) < mediCost) {
+                    } else if (Double.parseDouble(expense.getBudgetAmount()) <= mediCost) {
                         evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
@@ -186,6 +186,19 @@ public class BudgetController {
     private ListView<BudgetData> actualList;
 
     @FXML
+    private Button buttonRemove;
+
+    @FXML
+    void removeExpense(ActionEvent event) {
+        int selectedIndex = actualList.getSelectionModel().getSelectedIndex();
+        if (selectedIndex != -1) {
+            //HelloApplication.budget.removeIf(budgetData -> budgetData.equals(selectedItem));
+            actualList.getItems().remove(selectedIndex);
+        }
+    }
+
+
+    @FXML
     private ListView<String> expectedList;
 
 
@@ -216,16 +229,19 @@ public class BudgetController {
             actualList.getItems().add(HelloApplication.budget.get(i));
         }
 
-
-
         expenseTypeList.setItems(expenseItems);
 
         expenseTypeList.setValue("Expense Type");
 
         expenseTypeList.setOnAction(event -> {
             buttonAddExpense.setDisable(false);
-//            String selected = expenseTypeList.getValue();
-//            System.out.println("Selected: " + selected);
+        });
+
+        buttonRemove.setOnAction(e -> {
+            int selectedIndex = actualList.getSelectionModel().getSelectedIndex();
+            if (selectedIndex != -1) {
+                actualList.getItems().remove(selectedIndex);
+            }
         });
 
 
@@ -239,6 +255,55 @@ public class BudgetController {
     @FXML
     void expenseClicked(MouseEvent event) {
         System.out.println(expenseTypeList.getValue());
+    }
+
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button loadButton;
+
+    @FXML
+    void loadPress(ActionEvent event) {
+
+        try {
+            Scanner input = new Scanner(new File("budget.csv"));
+            while (input.hasNextLine()) {
+                String savedSchedule = input.nextLine();
+                String[] savedScheduleSplit = savedSchedule.split(",");
+                String budgetAmount = savedScheduleSplit[0];
+                String budgetName = savedScheduleSplit[1];
+                BudgetData budget = new BudgetData(budgetName, budgetAmount);
+                actualList.getItems().add(budget);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+
+    }
+
+
+    @FXML
+    void savePress(ActionEvent event) {
+        try {
+            new PrintWriter("budget.csv").close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't find file!");
+        }
+        File output = new File("budget.csv");
+        try(FileWriter writer = new FileWriter("budget.csv")){
+            for(int i = 0; i < HelloApplication.budget.size(); i++){
+                HelloApplication.budget.get(i).setChg2Str(true);
+                writer.write((HelloApplication.budget.get(i)) + ", ");
+                HelloApplication.budget.get(i).setChg2Str(false);
+                writer.write("\n");
+            }
+        }catch(IOException e){
+            System.out.println("Couldn't find csv file!");
+        }
+        actualList.getItems().clear();
+        //HelloApplication.budget.clear();
+
+
     }
 
 }

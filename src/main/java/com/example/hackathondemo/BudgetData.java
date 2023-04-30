@@ -18,6 +18,14 @@ public class BudgetData {
         this.budgetAmount = budgetAmount;
     }
 
+    public boolean isChg2Str() {
+        return chg2Str;
+    }
+
+    public void setChg2Str(boolean chg2Str) {
+        this.chg2Str = chg2Str;
+    }
+
     @Override
     public String toString() {
         return "$"+budgetAmount+"\t| "+budgetName;
