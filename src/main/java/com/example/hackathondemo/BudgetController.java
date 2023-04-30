@@ -192,8 +192,8 @@ public class BudgetController {
     void removeExpense(ActionEvent event) {
         int selectedIndex = actualList.getSelectionModel().getSelectedIndex();
         if (selectedIndex != -1) {
-            //HelloApplication.budget.removeIf(budgetData -> budgetData.equals(selectedItem));
-            actualList.getItems().remove(selectedIndex);
+            BudgetData removedItem = actualList.getItems().remove(selectedIndex);
+            HelloApplication.budget.remove(removedItem);
         }
     }
 
@@ -241,6 +241,7 @@ public class BudgetController {
             int selectedIndex = actualList.getSelectionModel().getSelectedIndex();
             if (selectedIndex != -1) {
                 actualList.getItems().remove(selectedIndex);
+                HelloApplication.budget.remove(selectedIndex);
             }
         });
 
