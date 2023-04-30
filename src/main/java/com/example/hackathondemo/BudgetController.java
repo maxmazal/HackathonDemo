@@ -68,20 +68,18 @@ public class BudgetController {
                 case "Housing":
                     housingCost = monthlyIncome * .35;
                     if (Double.parseDouble(expense.getBudgetAmount()) > housingCost) {
-                        evaluationText += "Your housing cost of " + housingCost + "exceeds 35% of your Monthly Income.\n";
-
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < housingCost) {
-                        evaluationText += "Your housing cost of" + housingCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
 
                 case "Transportation":
                     transCost = monthlyIncome * .10;
                     if (Double.parseDouble(expense.getBudgetAmount()) > transCost) {
-                        evaluationText += "Your transportation cost of" + transCost + "exceeds 10% of your Monthly Income.\n";
-
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < transCost) {
-                        evaluationText += "Your transportation cost of" + transCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
 
@@ -91,43 +89,43 @@ public class BudgetController {
                         evaluationText += "You are saving over 15% of your monthly income.\n";
 
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < savingCost) {
-                        evaluationText += "Your savings each month of " + savingCost + " is under 15% of your Monthly Income. You should save more money each month.\n";
+                        evaluationText += "Your savings each month of $" + expense.getBudgetAmount() + " is under 15% of your Monthly Income. You should save more money each month.\n";
                     }
                         break;
 
                 case "Food":
                     foodCost = monthlyIncome * .15;
                     if (Double.parseDouble(expense.getBudgetAmount()) > foodCost) {
-                        evaluationText += "Your food cost of " + foodCost + "exceeds 15% of your Monthly Income.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < foodCost) {
-                        evaluationText += "Your food cost of " + foodCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
 
                 case "Utilities":
                     utilCost = monthlyIncome * .10;
                     if (Double.parseDouble(expense.getBudgetAmount()) > utilCost) {
-                        evaluationText += "Your utility cost of " + utilCost + "exceeds 10% of your Monthly Income.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < utilCost) {
-                        evaluationText += "Your utility cost of " + utilCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
 
                 case "Insurance":
                     insurCost = monthlyIncome * .05;
                     if (Double.parseDouble(expense.getBudgetAmount()) > insurCost) {
-                        evaluationText += "Your insurance cost of " + insurCost + "exceeds 5% of your Monthly Income.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < insurCost) {
-                        evaluationText += "Your insurance cost of " + insurCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
 
                 case "Recreation":
                     recCost = monthlyIncome * .05;
                     if (Double.parseDouble(expense.getBudgetAmount()) > recCost) {
-                        evaluationText += "Your recreational cost of " + recCost + "exceeds 5% of your Monthly Income.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < recCost) {
-                        evaluationText += "Your recreational cost of " + recCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                         
                     }
                         break;
@@ -135,10 +133,9 @@ public class BudgetController {
                 case "Medical":
                     mediCost = monthlyIncome * .05;
                     if (Double.parseDouble(expense.getBudgetAmount()) > mediCost) {
-                        evaluationText += "Your medical cost of " + mediCost + "exceeds 5% of your Monthly Income.\n";
-
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " exceeds 15% of your Monthly Income.\n";
                     } else if (Double.parseDouble(expense.getBudgetAmount()) < mediCost) {
-                        evaluationText += "Your medical cost of " + mediCost + "is within budget.\n";
+                        evaluationText += "Your "+expense.getBudgetName()+" cost of $" + expense.getBudgetAmount() + " is within budget.\n";
                     }
                         break;
 
@@ -208,6 +205,8 @@ public class BudgetController {
 
         buttonFinish.setDisable(true);
 
+        buttonAddExpense.setDisable(true);
+
         actualList.getItems().clear();
 
         for(int i = 0; i < HelloApplication.budget.size(); i++){
@@ -222,6 +221,7 @@ public class BudgetController {
 
         expenseTypeList.setOnAction(event -> {
             String selected = expenseTypeList.getValue();
+            buttonAddExpense.setDisable(false);
             System.out.println("Selected: " + selected);
         });
 

@@ -23,7 +23,7 @@
       <AnchorPane prefHeight="361.0" prefWidth="777.0" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="53.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actual Cost of Expense" textAlignment="CENTER" />
-            <Text layoutX="256.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Cost of Expense" textAlignment="CENTER" />
+            <Text layoutX="279.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sugested Budget" textAlignment="CENTER" />
             <ListView fx:id="actualList" layoutX="14.0" layoutY="37.0" prefHeight="323.0" prefWidth="198.0" />
             <ListView fx:id="expectedList" layoutX="225.0" layoutY="37.0" prefHeight="324.0" prefWidth="198.0" />
             <TextArea fx:id="evaluationBox" editable="false" layoutX="445.0" layoutY="37.0" prefHeight="307.0" prefWidth="408.0" promptText="Your evaluation will appear here upon pressing 'Done'" />
