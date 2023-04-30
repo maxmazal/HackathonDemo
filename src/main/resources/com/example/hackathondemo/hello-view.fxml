@@ -27,7 +27,7 @@
             <Text layoutX="279.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sugested Budget" textAlignment="CENTER" />
             <ListView fx:id="actualList" layoutX="14.0" layoutY="37.0" prefHeight="301.0" prefWidth="198.0" />
             <ListView fx:id="expectedList" layoutX="225.0" layoutY="37.0" prefHeight="324.0" prefWidth="198.0" />
-            <TextArea fx:id="evaluationBox" editable="false" layoutX="445.0" layoutY="37.0" prefHeight="307.0" prefWidth="408.0" promptText="Your evaluation will appear here upon pressing 'Done'" />
+            <TextArea fx:id="evaluationBox" editable="false" layoutX="446.0" layoutY="88.0" prefHeight="259.0" prefWidth="408.0" promptText="An analysis of your budget will appear here upon pressing 'Done'" />
             <Text layoutX="476.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Budget Evaluation" textAlignment="CENTER" wrappingWidth="347.18817138671875" />
             <Button fx:id="buttonAddExpense" layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="25.0" prefWidth="91.0" text="Add Expense">
                <font>
@@ -38,6 +38,7 @@
                   <Font size="10.0" />
                </font>
             </Button>
+            <TextArea fx:id="budgetTotalText" editable="false" layoutX="446.0" layoutY="38.0" prefHeight="43.0" prefWidth="408.0" promptText="Your budget result will appear hear upon pressing 'Done'" />
          </children>
       </AnchorPane>
    </top>
