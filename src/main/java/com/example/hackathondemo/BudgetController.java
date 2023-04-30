@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.io.*;
+import java.util.Scanner;
+
 public class BudgetController {
 
 
@@ -28,8 +31,6 @@ public class BudgetController {
         }
 
         buttonFinish.setDisable(false);
-
-
 
     }
 
@@ -158,21 +159,6 @@ public class BudgetController {
             }
 
         }
-
-        /*
-        ############################################################################################################
-        */
-
-
-
-
-
-
-
-
-
-
-
 
 
         //System.out.println(calc);
